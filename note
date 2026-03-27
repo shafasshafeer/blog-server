@@ -1,0 +1,244 @@
+     node
+-----------------
+
+a runtime enviornment that let you run javascript outside the browser build on chroms vs engine
+
+---------express--------
+
+express is lite weight framwork for node js 
+it prvides tools to handle http request routing middlware and more
+
+
+mvc architecture - model view controller
+it is a software desingned pattern that suprates a application into 3 inter connected components
+
+
+model = it manages data logic and rules of the application eg-database schema
+
+view = here view handles user interface and presentasion layer - eg- frontend,html,css templates
+
+controller = it act as an intermediary proccessing user input and updating model and view  eg- routing request ,user requesting input form 
+
+
+step 1 = user intract wit the view eg- click on the button to fetch the data
+
+step-2 = controller recives the request and decided what to do
+
+step 3 = controller communicate with the model to fetch the data
+
+step 4 = model update the data and snd the results back
+
+step 5 =  controller passes the data to the view
+
+step 6 = view render the updated ui
+
+
+
+       cros 
+--------------------------
+ c-cros 
+ o-orgin 
+ r-resourse 
+ s-sharing
+
+  it is used to connect between frontend and backens
+
+      dotenv
+  -----------------
+
+  enviornment variables   
+  it is a file where you store sensitive configration values
+
+
+
+           mongoose
+-----------------------------
+
+odm - object datamodel library for node js 
+
+
+
+
+
+
+
+           start a project
+---------------------------------------
+
+npm init -y
+npm i express
+npm i cors
+npm i dotenv
+npm i mongoose
+
+create gitignore file
+add node_modules and .env to gitignore
+
+create DATABASE URL in .env
+
+create server.js file
+
+add start = node server.js in package.json test
+
+in server.js - create =>
+
+      import=>
+--------------------------
+require ('dotenv').config()
+const express= require('express')
+const cors= require('cors')
+
+
+       create server from express =>
+------------------------------------------------
+const soulserver= express()
+
+
+
+
+         use cors =>
+ --------------------------------   
+     
+soulserver.use(cors())
+
+    use middleware for covert request  json formate =>
+------------------------------------------------------------------
+soulserver.use(express.json())
+
+
+
+        create Port for run server
+ -----------------------------------------       
+const PORT=4000 || process.env.PORT
+soulserver.listen(PORT,()=>{
+    console.log(`server running successfully at ${PORT} `);
+    
+})
+
+
+               mongoose Atlas
+--------------------------------------------------------
+
+create new project in atlas and create clustor copy  connection string to database in .env file
+
+
+
+
+          create connection.js file
+------------------------------------------------------
+
+import mongoose 
+and import connectionnjs file in server.js
+
+
+
+const mongoose = require('mongoose')
+
+const ConnectionString= process.env.DATABASE
+
+mongoose.connect(ConnectionString).then(()=>{
+    console.log('mongoose is running successfully')
+    
+}).catch((error)=>{
+    console.log(error)
+    
+})
+
+
+
+
+install axios in frontend 
+
+
+create folder services for api calls
+
+         create Axiosapi.js
+-------------------------------------
+
+
+import {axios} from 'axios'
+
+export const axiosApi=async(reqmethod,url,reqbody,reqheader)=>{
+
+const reqConfig={
+    method:reqmethod,
+    url,
+    data:reqbody,
+    headers:reqheader?reqheader:{"Content-Type":"application/json"}
+}
+
+
+ return await axios(reqConfig).then((result)=>{
+    console.log(result);
+    
+}).catch((err)=>{
+    console.log(err)
+})
+
+}
+
+
+
+
+     connect backend url in frontend  => create serverUrl.js file 
+----------------------------------------------------------------------------
+export const serverUrl = 'http://localhost:4000'
+
+
+create usermodel.js in model folder and add mongoose schema
+
+
+
+              middlewares
+-----------------------------------------------
+middleware is function used to break the req,res cycle 
+
+3 parts
+
+req
+res
+next
+
+     application specific middleware
+----------------------------------------------------
+throwout in the application
+
+
+        route specific middleware
+---------------------------------------------------
+only in applyed routes
+
+
+
+url.create object model
+
+
+            use refference 
+-------------------------------------------
+
+multer is a node js middleware for handling multipart/formdata which is the encoding type used to file uploadinds forms
+
+
+
+
+
+
+
+                     context api
+------------------------------------------------------
+  
+context api is a builin react feature that enables vomponents to share data and state across the entire application components
+
+it avoids props drilling
+
+
+1 create context 
+it isa function used to create a context object
+
+
+2. provider 
+this is the component that wraps your app and broadcast the data
+
+
+3.use context
+this is the reciver hook used by any nested components to access the data
